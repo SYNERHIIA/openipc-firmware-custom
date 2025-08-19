@@ -1,0 +1,52 @@
+#!/bin/sh
+
+DAEMON="ffmpeg"
+PIDFILE="/var/run/$DAEMON.pid"
+RESOLUTION="640x480"
+RECEIVER=192.168.121.51:6001
+DAEMON_ARGS="-f video4linux2 -input_format mjpeg -video_size $RESOLUTION -fflags nobuffer -i /dev/video0 -fflags flush_packets -vcodec copy -f mjpeg -fflags nobuffer udp://$RECEIVER"
+
+start() {
+	echo -n "Starting $DAEMON: "
+	modprobe uvcvideo
+        sleep 2
+	start-stop-daemon -b -m -S -q -p "$PIDFILE" -x "$DAEMON" -- $DAEMON_ARGS
+	if [ $? -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+}
+
+stop() {
+	echo -n "Stopping $DAEMON: "
+	start-stop-daemon -K -q -p "$PIDFILE"
+	if [ $? -eq 0 ]; then
+		rm -f "$PIDFILE"
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+}
+
+case "$1" in
+	start|stop)
+		$1
+		;;
+
+	restart)
+		stop
+		sleep 3
+		start
+		;;
+
+	reload)
+		killall -1 "$DAEMON"
+		;;
+
+	*)
+		echo "Usage: $0 {start|stop|restart|reload}"
+		exit 1
+		;;
+esac
+

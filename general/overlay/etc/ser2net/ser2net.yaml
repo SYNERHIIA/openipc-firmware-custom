@@ -1,0 +1,23 @@
+%YAML 1.1
+---
+#This is a ser2net configuration file, tailored to be rather
+# simple.
+#
+# Find detailed documentation in ser2net.yaml(5)
+# A fully featured configuration file is in
+# /usr/share/doc/ser2net/examples/ser2net.yaml.gz
+# 
+# If you find your configuration more useful than this very simple
+# one, please submit it as a bugreport
+
+connection: &con1
+    accepter: udp,192.168.121.50,5000
+    enable: on
+    options:
+      max-connections: 100
+      kickolduser: true
+      telnet-brk-on-sync: true
+    connector: serialdev,
+              /dev/ttyS2,
+              420000n81,local
+

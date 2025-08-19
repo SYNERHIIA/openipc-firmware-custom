@@ -1,0 +1,93 @@
+system:
+  webPort: 80
+  httpsPort: 443
+  logLevel: debug
+  plugins: false
+isp:
+  antiFlicker: disabled
+image:
+  mirror: false
+  flip: false
+  rotate: 0
+  contrast: 25
+  hue: 50
+  saturation: 50
+  luminance: 70
+video0:
+  enabled: true
+  codec: h265
+  fps: 60
+  bitrate: 8192
+  rcMode: cbr
+  gopSize: 1
+  profile: main
+  size: 1920x1080
+  sliceUnits: 0
+video1:
+  enabled: false
+  codec: h264
+  size: 704x576
+  fps: 15
+jpeg:
+  enabled: false
+  qfactor: 50
+  fps: 5
+  rtsp: false
+osd:
+  enabled: false
+  font: /usr/share/fonts/truetype/UbuntuMono-Regular.ttf
+  template: '%d.%m.%Y %H:%M:%S'
+  posX: 16
+  posY: 16
+audio:
+  enabled: false
+  volume: 30
+  srate: 8000
+  codec: opus
+  outputEnabled: false
+  outputVolume: 30
+rtsp:
+  enabled: true 
+  port: 554
+nightMode:
+  enabled: true
+  irCutPin1: 23
+  irCutPin2: 24
+  backlightPin: 60
+  minThreshold: 6000
+  maxThreshold: 14000
+  colorToGray: true
+  irCutSingleInvert: false
+  lightMonitor: true
+  lightSensorInvert: false
+  monitorDelay: 1
+motionDetect:
+  enabled: false
+  visualize: false
+  debug: false
+records:
+  enabled: false
+  path: /mnt/mmcblk0p1/%F
+  split: 20
+  maxUsage: 95
+outgoing:
+  enabled: true
+  naluSize: 1200
+  server: udp://192.168.121.51:5600
+  substream: false
+watchdog:
+  enabled: true
+  timeout: 300
+hls:
+  enabled: false
+onvif:
+  enabled: true 
+ipeye:
+  enabled: false
+youtube:
+  enabled: false
+netip:
+  enabled: false
+cloud:
+  enabled: false
+
